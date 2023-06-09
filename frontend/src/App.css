@@ -50,3 +50,12 @@ main{
 .product-preview button{
   width: 100%;
 }
+
+
+.product-item {
+  display: flex;
+  justify-content: space-around;
+}
+.product-item img{
+  width: 200px;
+}

@@ -8,6 +8,7 @@ const ProductPreview = ({ product }) => {
                 <img src={product.img1} alt={product.title} />
             </Link>
             <p>{product.title}</p>
+            <p>Rating:{product.rating}({product.numOfReviews})</p>
             <p>${product.price}</p>
             <button>Add 2 cart</button>
         </div>
