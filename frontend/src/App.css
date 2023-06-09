@@ -24,3 +24,29 @@ header a {
   font-weight: bold;
   text-decoration: none;
 }
+
+main{
+  padding: 1rem;
+}
+
+.product-list{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:center;
+}
+
+
+.product-preview{
+  margin: 1rem;
+  border: 1px solid #404040;
+  padding: 1rem;
+}
+
+.product-preview img{
+  width: 100%;
+  max-width: 240px;
+
+}
+.product-preview button{
+  width: 100%;
+}

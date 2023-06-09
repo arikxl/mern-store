@@ -1,9 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const AppHeader = () => {
   return (
     <header>
-      <a href="/">AppHeader</a>
+      <Link to="/">AppHeader</Link>
     </header>
   )
 }
