@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import ProductPreview from './ProductPreview'
 import { productsReducer } from '../store/reducer';
+import Msg from './Msg';
 
 const ProductList = () => {
 
@@ -30,7 +31,7 @@ const ProductList = () => {
                 {
                     loading ? <div>LOADING...</div>
                         :
-                        error ? <div>{error}</div>
+                        error ? <Msg>{error}</Msg>
                             :
                             products?.map(product => (
                                 <ProductPreview product={product} key={product.slug} />

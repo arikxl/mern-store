@@ -2,6 +2,8 @@ import React, { useEffect, useReducer } from 'react'
 import { useParams } from 'react-router-dom'
 import { productsItemReducer } from '../store/reducer';
 import axios from 'axios';
+import Msg from '../components/Msg';
+
 
 const ProductItemPage = () => {
 
@@ -28,7 +30,7 @@ const ProductItemPage = () => {
   return (
     loading ? <div>LOADING...</div>
       :
-      error ? <div>{error}</div>
+      error ? <Msg>{error}</Msg>
         :
         <div className="product-item">
           <img src={product.img1} alt={product.title} />
