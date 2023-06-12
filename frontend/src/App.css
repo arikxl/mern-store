@@ -17,6 +17,8 @@ body {
 header{
   background-color: #404040;
   padding: 1rem;
+  display: flex;
+  justify-content: space-around;
 }
 
 header a {
@@ -59,3 +61,4 @@ main{
 .product-item img{
   width: 200px;
 }
+

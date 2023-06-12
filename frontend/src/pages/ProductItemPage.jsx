@@ -1,8 +1,10 @@
-import React, { useEffect, useReducer } from 'react'
+import React, { useContext, useEffect, useReducer } from 'react'
 import { useParams } from 'react-router-dom'
-import { productsItemReducer } from '../store/reducer';
+import { productsItemReducer } from '../store/reducers';
 import axios from 'axios';
 import Msg from '../components/Msg';
+import { getError } from '../utils/util';
+import { Store } from '../store/store';
 
 
 const ProductItemPage = () => {
@@ -14,6 +16,8 @@ const ProductItemPage = () => {
     loading: true, error: '', product: {}
   });
 
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+
   useEffect(() => {
     const fetchProduct = async () => {
       dispatch({ type: 'FETCH_REQUEST' })
@@ -21,11 +25,15 @@ const ProductItemPage = () => {
         const result = await axios.get(`/api/products/slug/${slug}`);
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data })
       } catch (error) {
-        dispatch({ type: 'FETCH_FAIL', payload: error.message })
+        dispatch({ type: 'FETCH_FAIL', payload: getError(error) })
       }
     }
     fetchProduct()
   }, [slug])
+
+  const handleAddToCart = () => {
+    ctxDispatch({type: 'CART_ADD_ITEM', payload:{...product, quantity:1}})
+  }
 
   return (
     loading ? <div>LOADING...</div>
@@ -51,7 +59,7 @@ const ProductItemPage = () => {
               <>
                 <h2>total price: {product.price}</h2>
                 <h4>amount: 1</h4>
-                <button>Add to Cart</button>
+                <button onClick={handleAddToCart}>Add to Cart</button>
               </>
             }
           </div>

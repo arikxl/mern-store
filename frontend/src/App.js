@@ -4,7 +4,10 @@ import { Route, Routes } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import ProductItemPage from './pages/ProductItemPage';
 
+
 function App() {
+
+
   return (
     <div className="App">
       <AppHeader />

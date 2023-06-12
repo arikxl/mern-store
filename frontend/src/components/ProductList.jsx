@@ -2,7 +2,7 @@ import React, { useEffect, useReducer, useState } from 'react'
 import axios from 'axios';
 
 import ProductPreview from './ProductPreview'
-import { productsReducer } from '../store/reducer';
+import { productsReducer } from '../store/reducers';
 import Msg from './Msg';
 
 const ProductList = () => {
