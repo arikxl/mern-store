@@ -6,7 +6,9 @@ export const Store = createContext();
 
 const initialState = {
     cart: {
-        cartItems: []
+        cartItems: localStorage.getItem('linoy-cartItems')
+            ? JSON.parse(localStorage.getItem('linoy-cartItems'))
+            : []
     },
 };
 

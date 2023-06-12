@@ -17,6 +17,7 @@ const ProductItemPage = () => {
   });
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
+  const {cart} = state;
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -31,9 +32,18 @@ const ProductItemPage = () => {
     fetchProduct()
   }, [slug])
 
-  const handleAddToCart = () => {
-    ctxDispatch({type: 'CART_ADD_ITEM', payload:{...product, quantity:1}})
+  const handleAddToCart = async  () => {
+    const existItem = cart.cartItems.find((x) => x._id === product._id)
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+    // const { data } = await axios.get(`/api/products/${product._id}`)
+    
+    if (product.stock < quantity) {
+      window.alert('no more items')
+      return
+    }
+    ctxDispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity }})
   }
+  
 
   return (
     loading ? <div>LOADING...</div>

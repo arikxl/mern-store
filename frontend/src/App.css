@@ -62,3 +62,6 @@ main{
   width: 200px;
 }
 
+/* button:disabled{
+  cursor: not-allowed;
+} */
