@@ -1,5 +1,16 @@
+import mongoose from 'mongoose';
 import express from 'express';
+import dotenv from 'dotenv';
+
 import data from './data.js';
+
+dotenv.config();
+
+mongoose.connect(process.env.MONGODB_URI).then(() => {
+    console.log('Connected to Mongo')
+}).catch(error => {
+    console.error(error.message);
+});
 
 const app = express();
 
@@ -30,3 +41,5 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`serve at ${PORT}` )
 })
+
+
