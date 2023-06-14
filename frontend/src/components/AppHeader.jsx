@@ -6,6 +6,7 @@ const AppHeader = () => {
   return (
     <header>
       <Link to="/">AppHeader</Link>
+      <Link to='login'>login</Link>
       <CartBadgeInHeader />
     </header>
   )

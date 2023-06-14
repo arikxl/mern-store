@@ -24,7 +24,7 @@ const CartPage = () => {
     }
 
     const handleCheckout = () => {
-        navigate('/signin?redirect=/shipping')
+        navigate('/login?redirect=/shipping')
     }
 
     return (
@@ -40,13 +40,14 @@ const CartPage = () => {
                     : (
                         cartItems.map((item) => (
                             <div key={item._id}>
-                                <p >{item.title}---qty:{item.quantity}</p>
+                                <p >{item.title}---</p>
                                 <p>price: ${item.price}</p>
                                 <b>total: {item.price * item.quantity}</b>
                                 <br />
                                 <button disabled={item.quantity === item.stock}
                                     onClick={() =>updateCartQty(item, item.quantity + 1)}
                                 >+</button>
+                                qty:{item.quantity}
                                 <button disabled={item.quantity === 1}
                                     onClick={()=>updateCartQty(item, item.quantity - 1)}
                                 >-</button>
