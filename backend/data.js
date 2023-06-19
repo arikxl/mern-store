@@ -1,4 +1,21 @@
+import bcrypt from 'bcryptjs';
+// instal bcryptjs
+
 const data = {
+    users: [
+        {
+            name: 'Arik Alexandrov',
+            email: 'arikxl@gmail.com',
+            password: bcrypt.hashSync('111'),
+            isAdmin: true
+      }  ,
+        {
+            name: 'Linoy Katz',
+            email: 'linoy@gmail.com',
+            password: bcrypt.hashSync('111'),
+            isAdmin: false
+      }  ,
+    ],
     products: [
         {
             title: 'Nike Slim shirt',
