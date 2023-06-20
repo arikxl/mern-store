@@ -11,9 +11,9 @@ const initialState = {
             : []
     },
   
-        userInfo: localStorage.getItem('linoy-userInfo')
-        ? JSON.parse(localStorage.getItem('linoy-userInfo'))
-        : null
+    userInfo: localStorage.getItem('linoy-userInfo')
+    ? JSON.parse(localStorage.getItem('linoy-userInfo'))
+    : null
 
     
 };

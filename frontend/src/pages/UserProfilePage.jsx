@@ -5,11 +5,11 @@ import { useNavigate } from 'react-router-dom';
 const UserProfilePage = () => {
     const navigate = useNavigate();
 
-    const { state, dispatch } = useContext(Store);
+    const { state, dispatch:ctxDispatch } = useContext(Store);
 
 
     const signOutHandler = () => {
-        dispatch({ type: 'USER_SIGNOUT' });
+        ctxDispatch({ type: 'USER_SIGNOUT' });
         localStorage.removeItem('linoy-userInfo');
         navigate('/')
     }

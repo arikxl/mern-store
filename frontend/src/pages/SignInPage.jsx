@@ -16,7 +16,7 @@ const SignInPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     
-    const { state, dispatch } = useContext(Store)
+    const { state, dispatch: ctxDispatch } = useContext(Store)
     const {  userInfo } = state;
 
     const handleSubmit = async (e) => {
@@ -25,7 +25,7 @@ const SignInPage = () => {
             const { data } = await axios.post('/api/users/login', {
                 email, password
             });
-            dispatch({ type: 'USER_LOGIN', payload: data });
+            ctxDispatch({ type: 'USER_LOGIN', payload: data });
             localStorage.setItem('linoy-userInfo', JSON.stringify(data));
             navigate(redirect || '/')
         } catch (error) {
@@ -44,10 +44,12 @@ const SignInPage = () => {
             <h1>SIGN IN</h1>
             <form onSubmit={handleSubmit}>
                 <label type='email'  >Email </label>
-                <input type="text" required onChange={(e) => setEmail(e.target.value)} />
+                <input type="text" required
+                    onChange={(e) => setEmail(e.target.value)} />
                 <br />
                 <label type='password'  >Password </label>
-                <input type="password" required onChange={(e) => setPassword(e.target.value)} />
+                <input type="password" required
+                    onChange={(e) => setPassword(e.target.value)} />
                 <br />
                 <button type="submit">LOGIN</button>
             </form>
