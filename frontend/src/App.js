@@ -1,11 +1,14 @@
 import AppHeader from './components/AppHeader';
-import './App.css';
 import { Route, Routes } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import ProductItemPage from './pages/ProductItemPage';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import './App.css';
 import CartPage from './pages/CartPage';
-import SignInPage from './pages/SignInPage';
+import HomePage from './pages/HomePage';
 import Register from './pages/Register';
+import SignInPage from './pages/SignInPage';
+import ProductItemPage from './pages/ProductItemPage';
 import UserProfilePage from './pages/UserProfilePage';
 
 
@@ -15,6 +18,7 @@ function App() {
 
   return (
     <div className="App">
+      <ToastContainer position='bottom-center' limit={ 1} />
       <AppHeader  />
       <main>
         <Routes>

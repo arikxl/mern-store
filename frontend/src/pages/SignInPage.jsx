@@ -2,11 +2,13 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Store } from '../store/store';
+import { toast } from 'react-toastify';
+import { getError } from '../utils/util';
 
 
 
 const SignInPage = () => {
-
+    
     const navigate = useNavigate();
     const { search } = useLocation()
     const redirectInUrl = new URLSearchParams(search).get('redirect');
@@ -27,9 +29,10 @@ const SignInPage = () => {
             });
             ctxDispatch({ type: 'USER_LOGIN', payload: data });
             localStorage.setItem('linoy-userInfo', JSON.stringify(data));
+            window.location.reload();
             navigate(redirect || '/')
         } catch (error) {
-            alert(error.response.data.message)
+            toast.error(getError(error))
         }
     };
 

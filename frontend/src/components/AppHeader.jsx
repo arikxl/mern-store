@@ -17,16 +17,12 @@ const AppHeader = () => {
   return (
     <header>
       <Link to="/">AppHeader</Link>
-
      
-        <Link to='/profile'> {user?.name}</Link>
-         <Link to='/login'>login</Link>
-      
-      {/* {
+      {
         userInfo
           ? (<Link to='/profile'> {userInfo.name}</Link>)
           : (<Link to='/login'>login</Link>) 
-      } */}
+      }
 
       <CartBadgeInHeader cart={cart} />
     </header>

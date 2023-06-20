@@ -61,8 +61,6 @@ export const userReducer = (state, action) => {
             return { ...state, userInfo: action.payload };
         case 'USER_SIGNOUT':
             return { ...state, userInfo: null };
-        // case 'FETCH_FAIL':
-        //     return { ...state, loading: false, error: action.payload };
         default:
             return state
     }

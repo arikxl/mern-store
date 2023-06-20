@@ -5,15 +5,17 @@ import { cartReducer } from './reducers';
 export const Store = createContext();
 
 const initialState = {
+    userInfo: localStorage.getItem('linoy-userInfo')
+        ? JSON.parse(localStorage.getItem('linoy-userInfo'))
+        : null,
+    
     cart: {
         cartItems: localStorage.getItem('linoy-cartItems')
             ? JSON.parse(localStorage.getItem('linoy-cartItems'))
             : []
     },
   
-    userInfo: localStorage.getItem('linoy-userInfo')
-    ? JSON.parse(localStorage.getItem('linoy-userInfo'))
-    : null
+ 
 
     
 };
