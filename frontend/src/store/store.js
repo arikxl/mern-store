@@ -10,6 +10,12 @@ const initialState = {
             ? JSON.parse(localStorage.getItem('linoy-cartItems'))
             : []
     },
+  
+        userInfo: localStorage.getItem('linoy-userInfo')
+        ? JSON.parse(localStorage.getItem('linoy-userInfo'))
+        : null
+
+    
 };
 
 

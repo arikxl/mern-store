@@ -1,21 +1,53 @@
-import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import React, { useContext, useEffect, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { Store } from '../store/store';
+
+
 
 const SignInPage = () => {
 
+    const navigate = useNavigate();
     const { search } = useLocation()
     const redirectInUrl = new URLSearchParams(search).get('redirect');
     const redirect = redirectInUrl ? redirectInUrl : '/';
 
+    
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    
+    const { state, dispatch } = useContext(Store)
+    const {  userInfo } = state;
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        try {
+            const { data } = await axios.post('/api/users/login', {
+                email, password
+            });
+            dispatch({ type: 'USER_LOGIN', payload: data });
+            localStorage.setItem('linoy-userInfo', JSON.stringify(data));
+            navigate(redirect || '/')
+        } catch (error) {
+            alert(error.response.data.message)
+        }
+    };
+
+    useEffect(() => {
+        if (userInfo) {
+            navigate(redirect)
+        }
+    },[navigate, redirect, userInfo])
+
     return (
         <div>
             <h1>SIGN IN</h1>
-            <form action="">
+            <form onSubmit={handleSubmit}>
                 <label type='email'  >Email </label>
-                <input type="text" required />
+                <input type="text" required onChange={(e) => setEmail(e.target.value)} />
                 <br />
                 <label type='password'  >Password </label>
-                <input type="password" required />
+                <input type="password" required onChange={(e) => setPassword(e.target.value)} />
                 <br />
                 <button type="submit">LOGIN</button>
             </form>
