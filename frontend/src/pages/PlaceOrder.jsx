@@ -1,7 +1,12 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useReducer } from 'react'
 import CheckoutSteps from '../components/CheckoutSteps'
 import { Store } from '../store/store';
 import { Link, useNavigate } from 'react-router-dom';
+import { reducer } from '../store/reducers';
+import { getError } from '../utils/util';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+
 
 
 const PlaceOrder = () => {
@@ -10,6 +15,10 @@ const PlaceOrder = () => {
 
   const { state, dispatch: ctxDispatch } = useContext(Store)
   const { cart, userInfo } = state;
+
+  const [{ loading }, dispatch] = useReducer(reducer, {
+    loading: false
+  });
 
   const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100;
   cart.itemsPrice = round2(
@@ -27,7 +36,36 @@ const PlaceOrder = () => {
   }, [cart.paymentMethod, navigate])
 
   const handlePlaceOrder = async () => {
+    try {
+      dispatch({ type: 'CREATE_REQUEST' });
+      const { data } = await axios.post('api/orders', {
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        paymentMethod: cart.paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+      },
+        {
+          headers: {
+            authorization: `Bearer ${userInfo.token}`,
+          },
+        })
+      ctxDispatch({ type: 'CART_CLEAR' });
+      dispatch({ type: 'CREATE_SUCCESS' });
+      localStorage.removeItem('linoy-cartItems');
+      // console.log('data:', data)
+      // setTimeout(function () {
+      //   console.log('data._id:', data._id)
+        
+      // },1000)
+      navigate(`/order/${data.order._id}`)
 
+    } catch (error) {
+      dispatch({ type: 'CREATE_FAIL' });
+      toast.error(getError(error))
+    }
   }
 
 
@@ -81,7 +119,7 @@ const PlaceOrder = () => {
           <p> || tax: ${cart.taxPrice?.toFixed(2)}</p>
           <p><mark>|| total: ${cart.totalPrice?.toFixed(2)}</mark> </p>
           <button disabled={cart.cartItems.length < 1} onClick={handlePlaceOrder}>Place order</button>
-
+            {loading &&<p>LOADING...</p>}
         </div>
       </div>
 

@@ -39,7 +39,18 @@ export const reducer = (state, action) => {
         case 'SAVE_SHIPPING_ADDRESS':
             return { ...state, cart: { ...state.cart, shippingAddress: action.payload } };
         case 'SAVE_PAYMENT_METHOD':
-            return { ...state, cart:{...state.cart, paymentMethod: action.payload} };
+            return { ...state, cart: { ...state.cart, paymentMethod: action.payload } };
+        
+        case 'CREATE_REQUEST':
+            return { ...state, loading: true }
+        case 'CREATE_SUCCESS':
+            return { ...state, loading: false }
+        case 'CREATE_FAIL':
+            return { ...state, loading: false }
+        case 'CART_CLEAR':
+            return {...state, cart: {...state.cart, cartItems: []}}
+        
+        
         default:
             return state
     }
