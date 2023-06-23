@@ -12,7 +12,10 @@ const initialState = {
     cart: {
         cartItems: localStorage.getItem('linoy-cartItems')
             ? JSON.parse(localStorage.getItem('linoy-cartItems'))
-            : []
+            : [],
+        shippingAddress: localStorage.getItem('linoy-shippingAddress')
+            ? JSON.parse(localStorage.getItem('linoy-shippingAddress'))
+            : {},
     },
   
  

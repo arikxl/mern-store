@@ -60,11 +60,25 @@ export const userReducer = (state, action) => {
         case 'USER_LOGIN':
             return { ...state, userInfo: action.payload };
         case 'USER_SIGNOUT':
-            return { ...state, userInfo: null };
+            return {
+                ...state, userInfo: null,
+                cart: { cartItems: [], shippingAddress: {} }
+            };
         default:
             return state
     }
 }
+
+export const shippingReducer = (state, action) => {
+    switch (action.type) {
+        case 'SAVE_SHIPPING_ADDRESS':
+            return { ...state, cart:{...state.cart, shippingAddress: action.payload} };
+        default:
+            return state
+    }
+}
+
+
 
 
 // export const cartReducer = (state, action) => {

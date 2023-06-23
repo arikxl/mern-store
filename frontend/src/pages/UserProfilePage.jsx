@@ -11,6 +11,7 @@ const UserProfilePage = () => {
     const signOutHandler = () => {
         ctxDispatch({ type: 'USER_SIGNOUT' });
         localStorage.removeItem('linoy-userInfo');
+        localStorage.removeItem('linoy-shippingAddress');
         
         navigate('/')
         window.location.reload();

@@ -10,6 +10,8 @@ import Register from './pages/Register';
 import SignInPage from './pages/SignInPage';
 import ProductItemPage from './pages/ProductItemPage';
 import UserProfilePage from './pages/UserProfilePage';
+import ShippingPage from './pages/ShippingPage';
+import PaymentPage from './pages/PaymentPage';
 
 
 
@@ -28,6 +30,8 @@ function App() {
           <Route path='/login' element={<SignInPage/> } />  
           <Route path='/register' element={<Register/> } />  
           <Route path='/profile' element={<UserProfilePage/> } />  
+          <Route path='/shipping' element={<ShippingPage/> } />  
+          <Route path='/payment' element={<PaymentPage/> } />  
         </Routes>
       </main>
     </div>
