@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useReducer } from 'react'
 import { useParams } from 'react-router-dom'
-import { productsItemReducer } from '../store/reducers';
+// import { productsItemReducer, reducer } from '../store/reducers';
+import {  reducer } from '../store/reducers';
 import axios from 'axios';
 import Msg from '../components/Msg';
 import { getError } from '../utils/util';
@@ -12,7 +13,7 @@ const ProductItemPage = () => {
   const params = useParams();
   const { slug } = params;
 
-  const [{ loading, error, product }, dispatch] = useReducer(productsItemReducer, {
+  const [{ loading, error, product }, dispatch] = useReducer(reducer, {
     loading: true, error: '', product: {}
   });
 
@@ -24,7 +25,7 @@ const ProductItemPage = () => {
       dispatch({ type: 'FETCH_REQUEST' })
       try {
         const result = await axios.get(`/api/products/slug/${slug}`);
-        dispatch({ type: 'FETCH_SUCCESS', payload: result.data })
+        dispatch({ type: 'ITEM_FETCH_SUCCESS', payload: result.data })
       } catch (error) {
         dispatch({ type: 'FETCH_FAIL', payload: getError(error) })
       }

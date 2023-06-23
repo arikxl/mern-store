@@ -1,5 +1,5 @@
 import { createContext, useReducer } from 'react';
-import { cartReducer } from './reducers';
+import {  reducer } from './reducers';
 
 
 export const Store = createContext();
@@ -16,6 +16,10 @@ const initialState = {
         shippingAddress: localStorage.getItem('linoy-shippingAddress')
             ? JSON.parse(localStorage.getItem('linoy-shippingAddress'))
             : {},
+        paymentMethod: localStorage.getItem('linoy-paymentMethod')
+            ? localStorage.getItem('linoy-paymentMethod') 
+            : '',
+        
     },
   
  
@@ -26,7 +30,7 @@ const initialState = {
 
 
 export function StoreProvider(props) {
-    const [state, dispatch] = useReducer(cartReducer, initialState);
+    const [state, dispatch] = useReducer(reducer, initialState);
     const value = { state, dispatch };
     return <Store.Provider value={value}>{props.children}</Store.Provider>;
 }

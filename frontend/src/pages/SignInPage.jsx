@@ -29,7 +29,7 @@ const SignInPage = () => {
             });
             ctxDispatch({ type: 'USER_LOGIN', payload: data });
             localStorage.setItem('linoy-userInfo', JSON.stringify(data));
-            window.location.reload();
+            // window.location.reload();
             navigate(redirect || '/')
         } catch (error) {
             toast.error(getError(error))
@@ -57,7 +57,7 @@ const SignInPage = () => {
                 <button type="submit">LOGIN</button>
             </form>
             <p>new costumer?
-                <Link to={`/signup?redirect=${redirect}`}>
+                <Link to={`/register?redirect=${redirect}`}>
                     create your account
                 </Link></p>
         </div>

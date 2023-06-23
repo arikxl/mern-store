@@ -1,5 +1,5 @@
 import AppHeader from './components/AppHeader';
-import { Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -12,6 +12,7 @@ import ProductItemPage from './pages/ProductItemPage';
 import UserProfilePage from './pages/UserProfilePage';
 import ShippingPage from './pages/ShippingPage';
 import PaymentPage from './pages/PaymentPage';
+import PlaceOrder from './pages/PlaceOrder';
 
 
 
@@ -19,6 +20,8 @@ function App() {
 
 
   return (
+    <BrowserRouter>
+
     <div className="App">
       <ToastContainer position='bottom-center' limit={ 1} />
       <AppHeader  />
@@ -32,9 +35,12 @@ function App() {
           <Route path='/profile' element={<UserProfilePage/> } />  
           <Route path='/shipping' element={<ShippingPage/> } />  
           <Route path='/payment' element={<PaymentPage/> } />  
+          <Route path='/placeorder' element={<PlaceOrder/> } />  
         </Routes>
       </main>
-    </div>
+      </div>
+          </BrowserRouter>
+
   );
 }
 

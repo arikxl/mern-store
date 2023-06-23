@@ -1,6 +1,6 @@
 
 
-export const productsReducer = (state, action) => {
+export const reducer = (state, action) => {
     switch (action.type) {
         case 'FETCH_REQUEST':
             return { ...state, loading: true };
@@ -8,27 +8,8 @@ export const productsReducer = (state, action) => {
             return { ...state, loading: false, products: action.payload };
         case 'FETCH_FAIL':
             return { ...state, loading: false, error: action.payload };
-        default:
-            return state
-    }
-}
-
-export const productsItemReducer = (state, action) => {
-    switch (action.type) {
-        case 'FETCH_REQUEST':
-            return { ...state, loading: true };
-        case 'FETCH_SUCCESS':
+                case 'ITEM_FETCH_SUCCESS':
             return { ...state, loading: false, product: action.payload };
-        case 'FETCH_FAIL':
-            return { ...state, loading: false, error: action.payload };
-        default:
-            return state
-    }
-}
-
-
-export const cartReducer = (state, action) => {
-    switch (action.type) {
         case 'CART_ADD_ITEM':
 
             const newItem = action.payload;
@@ -48,37 +29,46 @@ export const cartReducer = (state, action) => {
             localStorage.setItem('linoy-cartItems', JSON.stringify(cartItems))
             return { ...state, cart: { ...state.cart, cartItems } }
         }
-
-        
-        default:
-            return state;
-    }
-};
-
-export const userReducer = (state, action) => {
-    switch (action.type) {
         case 'USER_LOGIN':
             return { ...state, userInfo: action.payload };
         case 'USER_SIGNOUT':
             return {
                 ...state, userInfo: null,
-                cart: { cartItems: [], shippingAddress: {} }
+                cart: { cartItems: [], shippingAddress: {}, paymentMethod: '' }
             };
-        default:
-            return state
-    }
-}
-
-export const shippingReducer = (state, action) => {
-    switch (action.type) {
         case 'SAVE_SHIPPING_ADDRESS':
-            return { ...state, cart:{...state.cart, shippingAddress: action.payload} };
+            return { ...state, cart: { ...state.cart, shippingAddress: action.payload } };
+        case 'SAVE_PAYMENT_METHOD':
+            return { ...state, cart:{...state.cart, paymentMethod: action.payload} };
         default:
             return state
     }
 }
+// export const productsReducer = (state, action) => {
+//     switch (action.type) {
+//         case 'FETCH_REQUEST':
+//             return { ...state, loading: true };
+//         case 'FETCH_SUCCESS':
+//             return { ...state, loading: false, products: action.payload };
+//         case 'FETCH_FAIL':
+//             return { ...state, loading: false, error: action.payload };
+//         default:
+//             return state
+//     }
+// }
 
-
+// export const productsItemReducer = (state, action) => {
+//     switch (action.type) {
+//         case 'FETCH_REQUEST':
+//             return { ...state, loading: true };
+//         case 'FETCH_SUCCESS':
+//             return { ...state, loading: false, product: action.payload };
+//         case 'FETCH_FAIL':
+//             return { ...state, loading: false, error: action.payload };
+//         default:
+//             return state
+//     }
+// }
 
 
 // export const cartReducer = (state, action) => {
@@ -93,17 +83,53 @@ export const shippingReducer = (state, action) => {
 //                 ? state.cart.cartItems.map((item) => item._id === existingItem._id
 //                     ? newItem : item)
 //                 : [...state.cart.cartItems, newItem];
-//             return {...state, cart: {...state.cart, cartItems}}
+//             localStorage.setItem('linoy-cartItems', JSON.stringify(cartItems))
+//             return { ...state, cart: { ...state.cart, cartItems } }
 
 //         case 'CART_REMOVE_ITEM': {
 //             const cartItems = state.cart.cartItems.filter(
 //                 (item) => item._id !== action.payload._id);
-//             return {...state, cart: {...state.cart, cartItems }}
+//             localStorage.setItem('linoy-cartItems', JSON.stringify(cartItems))
+//             return { ...state, cart: { ...state.cart, cartItems } }
 //         }
 
         
 //         default:
 //             return state;
 //     }
-    
+// };
+
+// export const userReducer = (state, action) => {
+//     switch (action.type) {
+//         case 'USER_LOGIN':
+//             return { ...state, userInfo: action.payload };
+//         case 'USER_SIGNOUT':
+//             return {
+//                 ...state, userInfo: null,
+//                 cart: { cartItems: [], shippingAddress: {}, paymentMethod: '' }
+//             };
+//         default:
+//             return state
+//     }
 // }
+
+// export const shippingReducer = (state, action) => {
+//     switch (action.type) {
+//         case 'SAVE_SHIPPING_ADDRESS':
+//             return { ...state, cart:{...state.cart, shippingAddress: action.payload} };
+//         default:
+//             return state
+//     }
+// }
+
+// export const paymentMethodReducer = (state, action) => {
+//     switch (action.type) {
+//         case 'SAVE_PAYMENT_METHOD':
+//             return { ...state, cart:{...state.cart, paymentMethod: action.payload} };
+//         default:
+//             return state
+//     }
+// }
+
+
+

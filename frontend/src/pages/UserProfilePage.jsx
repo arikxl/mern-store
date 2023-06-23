@@ -12,9 +12,10 @@ const UserProfilePage = () => {
         ctxDispatch({ type: 'USER_SIGNOUT' });
         localStorage.removeItem('linoy-userInfo');
         localStorage.removeItem('linoy-shippingAddress');
+        localStorage.removeItem('linoy-paymentMethod');
         
         navigate('/')
-        window.location.reload();
+        // window.location.reload();
     }
 
     return (<>
