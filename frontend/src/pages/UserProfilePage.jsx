@@ -5,9 +5,10 @@ import { useNavigate } from 'react-router-dom';
 const UserProfilePage = () => {
     const navigate = useNavigate();
 
-    const { state, dispatch:ctxDispatch } = useContext(Store);
-
-
+    const { state, dispatch: ctxDispatch } = useContext(Store);
+    const { userInfo } = state;
+    
+    
     const signOutHandler = () => {
         ctxDispatch({ type: 'USER_SIGNOUT' });
         localStorage.removeItem('linoy-userInfo');
@@ -17,9 +18,10 @@ const UserProfilePage = () => {
         navigate('/')
         // window.location.reload();
     }
-
+    
     return (<>
         <div>UserProfilePage</div>
+        {userInfo?.isAdmin && <h3>admin panel</h3>}
         <button onClick={signOutHandler}>sign out</button>
     </>
     )

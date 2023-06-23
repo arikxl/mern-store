@@ -82,7 +82,19 @@ main{
   color: hotpink;
 }
 
-/* #cash{
-  width:30px;
-  height: 30px;
-} */
+.flex{
+  display: flex;
+}
+.sml-img{
+  width: 100px;
+  height: 100px;
+}
+
+.center{
+  align-items: center;
+}
+
+.col{
+  display: flex;
+  flex-direction: column;
+}
