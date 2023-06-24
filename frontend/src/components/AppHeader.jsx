@@ -2,6 +2,10 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import CartBadgeInHeader from './CartBadgeInHeader'
 import { Store } from '../store/store';
+import { toast } from 'react-toastify';
+import { getError } from '../utils/util.js';
+import axios from 'axios';
+
 
 const AppHeader = () => {
 
@@ -9,10 +13,24 @@ const AppHeader = () => {
   const { cart, userInfo } = state;
 
   const [user, setUser] = useState({})
+  const [categories, setCategories] = useState([]);
+
 
   useEffect(() => {
     if(userInfo) setUser(userInfo)
-  },[user, userInfo])
+  }, [user, userInfo])
+  
+  // useEffect(() => {
+  //   const fetchCategories = async () => {
+  //     try {
+  //       const { data } = await axios.get(`/api/products/categories`);
+  //       setCategories(data);
+  //     } catch (err) {
+  //       toast.error(getError(err));
+  //     }
+  //   };
+  //   fetchCategories();
+  // }, []);
 
   return (
     <header>
@@ -25,6 +43,15 @@ const AppHeader = () => {
       }
 
       <CartBadgeInHeader cart={cart} />
+      <div>
+        {categories?.map((category) => (
+          <Link to={`/search?category=${category}`}>{category }</Link>
+        ))}
+      </div>
+
+      <div>
+        <input />
+      </div>
     </header>
   )
 }
