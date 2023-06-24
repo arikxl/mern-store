@@ -13,6 +13,7 @@ import UserProfilePage from './pages/UserProfilePage';
 import ShippingPage from './pages/ShippingPage';
 import PaymentPage from './pages/PaymentPage';
 import PlaceOrder from './pages/PlaceOrder';
+import OrderPage from './pages/OrderPage';
 
 
 
@@ -29,6 +30,7 @@ function App() {
         <Routes>
           <Route path='/' element={<HomePage/> } />  
           <Route path='/product/:slug' element={<ProductItemPage/> } />  
+          <Route path='/order/:id' element={<OrderPage/> } />  
           <Route path='/cart' element={<CartPage/> } />  
           <Route path='/login' element={<SignInPage/> } />  
           <Route path='/register' element={<Register/> } />  

@@ -32,7 +32,7 @@ const ProductList = () => {
                 {
                     loading ? <div>LOADING...</div>
                         :
-                        error ? <Msg>{error}</Msg>
+                        error ? <Msg color='pink'>{error}</Msg>
                             :
                             products?.map(product => (
                                 <ProductPreview product={product} key={product.slug} />

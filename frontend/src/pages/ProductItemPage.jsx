@@ -49,7 +49,7 @@ const ProductItemPage = () => {
   return (
     loading ? <div>LOADING...</div>
       :
-      error ? <Msg>{error}</Msg>
+      error ? <Msg color='pink'>{error}</Msg>
         :
         <div className="product-item">
           <img src={product.img1} alt={product.title} />

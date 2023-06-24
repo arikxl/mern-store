@@ -55,11 +55,7 @@ const PlaceOrder = () => {
       ctxDispatch({ type: 'CART_CLEAR' });
       dispatch({ type: 'CREATE_SUCCESS' });
       localStorage.removeItem('linoy-cartItems');
-      // console.log('data:', data)
-      // setTimeout(function () {
-      //   console.log('data._id:', data._id)
-        
-      // },1000)
+
       navigate(`/order/${data.order._id}`)
 
     } catch (error) {
