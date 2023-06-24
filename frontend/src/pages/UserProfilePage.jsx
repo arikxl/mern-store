@@ -5,6 +5,7 @@ import { getError } from '../utils/util';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Msg from '../components/Msg';
+import UserProfile from '../components/UserProfile';
 
 
 
@@ -62,36 +63,19 @@ const UserProfilePage = () => {
         localStorage.removeItem('linoy-shippingAddress');
         localStorage.removeItem('linoy-paymentMethod');
 
-        navigate('/')
+        window.location.href = '/login';
         // window.location.reload();
     }
 
 
-    const deleteHandler = async (order) => {
-        if (window.confirm('Are you sure to delete?')) {
-            try {
-                dispatch({ type: 'DELETE_REQUEST' });
-                await axios.delete(`/api/orders/${order._id}`, {
-                    headers: { Authorization: `Bearer ${userInfo.token}` },
-                });
-                toast.success('order deleted successfully');
-                dispatch({ type: 'DELETE_SUCCESS' });
-            } catch (err) {
-                toast.error(getError(error));
-                dispatch({
-                    type: 'DELETE_FAIL',
-                });
-            }
-        }
-    };
-
-    const date = new Date(Date.now());
-    console.log('date:', date)
+    // const date = new Date(Date.now());
+    // console.log('date:', date)
     // console.log( date.toLocalString())
 
     return (<>
         <div>UserProfilePage</div>
-        <h2>Shalom { userInfo?.name}</h2>
+        <h2>Shalom {userInfo?.name}</h2>
+        <UserProfile userInfo={userInfo} ctxDispatch={ctxDispatch} />
         <button onClick={signOutHandler}>sign out</button>
         {userInfo?.isAdmin && <h3>admin panel</h3>}
         <hr />

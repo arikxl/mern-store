@@ -48,7 +48,13 @@ export const reducer = (state, action) => {
         case 'CREATE_FAIL':
             return { ...state, loading: false }
         case 'CART_CLEAR':
-            return {...state, cart: {...state.cart, cartItems: []}}
+            return { ...state, cart: { ...state.cart, cartItems: [] } }
+        case 'USER_UPDATE_REQUEST':
+            return { ...state, loadingUpdate: true };
+        case 'USER_UPDATE_SUCCESS':
+            return { ...state, loadingUpdate: false };
+        case 'USER_UPDATE_FAIL':
+            return { ...state, loadingUpdate: false };
         
         
         default:
