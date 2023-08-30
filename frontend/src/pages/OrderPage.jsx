@@ -5,6 +5,7 @@ import { reducer } from '../store/reducers';
 import { Store } from '../store/store';
 import { getError } from '../utils/util';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const OrderPage = () => {
 
@@ -65,7 +66,9 @@ const OrderPage = () => {
         order: {},
         error: '',
         successPay: false,
+        successDeliver: false,
         loadingPay: false,
+        loadingDeliver: false,
     });
 
 
@@ -98,7 +101,7 @@ const OrderPage = () => {
             if (successDeliver) {
                 dispatch({ type: 'DELIVER_RESET' });
             }
-        } 
+        }
     }, [
         order,
         userInfo,
@@ -108,7 +111,44 @@ const OrderPage = () => {
         successDeliver,
     ]);
 
-    
+    const handleDeliver = async () => {
+        try {
+            dispatch({ type: 'DELIVER_REQUEST' })
+            const { data } = await axios.put(
+                `/api/orders/${order._id}/deliver`,
+                {},
+                {
+                    headers: { authorization: `Bearer ${userInfo.token}` }
+                }
+            )
+            dispatch({ type: 'DELIVER_SUCCESS', payload: data })
+            toast.success('Order is Delivered!')
+
+        } catch (error) {
+            toast.error(getError(error))
+            dispatch({ type: 'DELIVER_FAIL' })
+        }
+    }
+    const handlePay = async () => {
+        try {
+            dispatch({ type: 'PAY_REQUEST' })
+            const { data } = await axios.put(
+                `/api/orders/${order._id}/pay`,
+                {},
+                {
+                    headers: { authorization: `Bearer ${userInfo.token}` }
+                }
+            )
+            dispatch({ type: 'PAY_SUCCESS', payload: data })
+            toast.success('Order is Paid!')
+
+        } catch (error) {
+            toast.error(getError(error))
+            dispatch({ type: 'PAY_FAIL' })
+        }
+    }
+
+
     return (
         loading ? <h1>LOADING...</h1>
             : error ? <Msg color='pink'>{error}</Msg>
@@ -116,7 +156,7 @@ const OrderPage = () => {
 
                     <div>
 
-                        <h1>Preview order { order._id}</h1>
+                        <h1>Preview order {order._id}</h1>
                         <div className="flex">
                             <div style={{ flex: '5' }}>
                                 <div>
@@ -124,8 +164,8 @@ const OrderPage = () => {
                                     <p>{order.shippingAddress.fullName}</p>
                                     <p>{order.shippingAddress.address} ,{order.shippingAddress.city}</p>
                                     <p>{order.shippingAddress.zipcode}</p>
-                                    {order.isDeliverd ?
-                                        <Msg color='lightgreen'>Deliverd at {order.deliveredAt }</Msg>
+                                    {order.isDelivered ?
+                                        <Msg color='lightgreen'>Deliverd at {order.deliveredAt.toLocaleString()}</Msg>
                                         : <Msg color='pink'>Not Delivered</Msg>}
                                 </div>
                                 <hr />
@@ -133,7 +173,7 @@ const OrderPage = () => {
                                     <h2>Payment method</h2>
                                     <p>{order.paymentMethod}</p>
                                     {order.isPaid ?
-                                        <Msg color='lightgreen'>Deliverd at {order.paidAt}</Msg>
+                                        <Msg color='lightgreen'>Paid at {order.paidAt}</Msg>
                                         : <Msg color='pink'>Not Paid</Msg>}
                                 </div>
                                 <hr />
@@ -165,6 +205,22 @@ const OrderPage = () => {
                                 <p> || tax: ${order.taxPrice?.toFixed(2)}</p>
                                 <p><mark>|| total: ${order.totalPrice?.toFixed(2)}</mark> </p>
                                 {loading && <p>LOADING...</p>}
+
+                                {userInfo.isAdmin && !order.isPaid && (
+                                    <button disabled={loadingPay} className="btn-paid"
+                                        onClick={handlePay}>
+                                        ADMIN - MARK AS PAID
+                                    </button>
+                                )}
+                                {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                                    <>
+                                        {loadingDeliver && ('LOADING...')}
+                                        <button disabled={loadingDeliver} className="btn-delivered"
+                                            onClick={handleDeliver}>
+                                            ADMIN - MARK AS DELIVERED
+                                        </button>
+                                    </>
+                                )}
                             </div>
                         </div>
 

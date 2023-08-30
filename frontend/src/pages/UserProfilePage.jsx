@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useReducer } from 'react'
 import { Store } from '../store/store';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getError } from '../utils/util';
 import axios from 'axios';
 import { toast } from 'react-toastify';
@@ -34,7 +34,7 @@ const UserProfilePage = () => {
         loading: true,
         error: '',
     });
-    
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -77,13 +77,31 @@ const UserProfilePage = () => {
         <h2>Shalom {userInfo?.name}</h2>
         <UserProfile userInfo={userInfo} ctxDispatch={ctxDispatch} />
         <button onClick={signOutHandler}>sign out</button>
-        {userInfo?.isAdmin && <h3>admin panel</h3>}
         <hr />
+        {userInfo?.isAdmin && (
+            <>
+                < h3 > <mark>admin panel</mark></h3 >
+                <Link to='/admin/dashboard'>
+                    <h2>Dashboard</h2>
+                </Link>
+                <Link to='/admin/orders'>
+                    <h2>orders</h2>
+                </Link>
+                <Link to='/admin/products'>
+                    <h2>products</h2>
+                </Link>
+                <Link to='/admin/users'>
+                    <h2>users</h2>
+                </Link>
+            </>
+        )}
+        < hr />
+
         <div>
             <p>orders:</p>
             {loading
                 ? <h1>LOADING</h1>
-                : error ? 
+                : error ?
                     <Msg color='pink'>{error}</Msg>
                     : (
 
@@ -123,7 +141,7 @@ const UserProfilePage = () => {
                                 ))}
                             </tbody>
                         </table>
-                )}
+                    )}
         </div>
 
 

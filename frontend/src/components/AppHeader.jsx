@@ -2,8 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import CartBadgeInHeader from './CartBadgeInHeader'
 import { Store } from '../store/store';
-import { toast } from 'react-toastify';
-import { getError } from '../utils/util.js';
+
 import axios from 'axios';
 
 
@@ -18,7 +17,7 @@ const AppHeader = () => {
 
   useEffect(() => {
     if(userInfo) setUser(userInfo)
-  }, [user, userInfo])
+  }, [user])
   
   // useEffect(() => {
   //   const fetchCategories = async () => {
@@ -38,7 +37,7 @@ const AppHeader = () => {
      
       {
         userInfo
-          ? (<Link to='/profile'> {userInfo.name}</Link>)
+          ? (<Link to='/profile'> {user.name}</Link>)
           : (<Link to='/login'>login</Link>) 
       }
 

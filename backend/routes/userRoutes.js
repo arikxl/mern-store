@@ -4,7 +4,7 @@ import expressAsyncHandler from 'express-async-handler';
 
 
 import User from '../models/userModel.js';
-import { generateToken, isAuth } from '../utils/utils.js';
+import { generateToken, isAdmin, isAuth } from '../utils/utils.js';
 
 const userRouter = express.Router();
 
@@ -67,6 +67,66 @@ userRouter.put(
       });
     } else {
       res.status(404).send({ message: 'User not found' });
+    }
+  })
+);
+
+
+userRouter.get('/', isAuth, isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const users = await User.find({})
+    res.send(users)
+  })
+)
+
+userRouter.get(
+  '/:id',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      res.send(user);
+    } else {
+      res.status(404).send({ message: 'User Not Found' });
+    }
+  })
+);
+
+userRouter.put(
+  '/:id',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const userId = req.params.id;
+    const user = await User.findById(userId);
+    if (user) {
+      user.name = req.body.name;
+      user.email = req.body.email;
+      user.isAdmin = req.body.isAdmin;
+
+      await user.save();
+      res.send({ message: 'User Updated' });
+    } else {
+      res.status(404).send({ message: 'User Not Found' });
+    }
+  })
+);
+
+userRouter.delete(
+  '/:id',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      if (user.isAdmin) {
+        res.status(400).send({message: 'Can not delete ADMIN user!!!'})
+      }
+      await user.deleteOne();
+      res.send({ message: 'User Deleted' });
+    } else {
+      res.status(404).send({ message: 'User Not Found' });
     }
   })
 );

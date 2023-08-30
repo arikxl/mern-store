@@ -21,10 +21,10 @@ const initialState = {
             : '',
         
     },
-  
+    favItems:  localStorage.getItem('linoy-fav')
+        ? JSON.parse(localStorage.getItem('linoy-fav'))
+        : [],
  
-
-    
 };
 
 

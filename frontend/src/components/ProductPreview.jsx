@@ -5,7 +5,7 @@ import { Store } from '../store/store';
 const ProductPreview = ({ product }) => {
 
     const { state, dispatch: ctxDispatch } = useContext(Store);
-    const { cart } = state;
+    const { cart, favItems } = state;
 
     const handleAddToCart = async (product) => {
         const existItem = cart.cartItems.find((x) => x._id === product._id)
@@ -19,8 +19,21 @@ const ProductPreview = ({ product }) => {
         ctxDispatch({ type: 'CART_ADD_ITEM', payload: { ...product, quantity } })
     }
 
+    const handleFav = () => {
+        
+        ctxDispatch({ type: 'ADD_FAV_ITEM', payload:  product  })
+    }
+
+    const removeFav = () => {
+        
+        ctxDispatch({ type: 'REMOVE_FAV_ITEM', payload:  product  })
+    }
+
+
     return (
         <div className="product-preview">
+            <button onClick={() => handleFav()}>add 2 fav</button>
+            <button onClick={() => removeFav()}>remove from fav</button>
             <Link to={`/product/${product.slug}`}>
                 <img src={product.img1} alt={product.title} />
             </Link>

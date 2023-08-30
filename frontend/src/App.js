@@ -14,6 +14,15 @@ import ShippingPage from './pages/ShippingPage';
 import PaymentPage from './pages/PaymentPage';
 import PlaceOrder from './pages/PlaceOrder';
 import OrderPage from './pages/OrderPage';
+import FavList from './pages/FavList';
+import ProtectedRoutes from './components/ProtectedRoutes';
+import AdminRoute from './components/AdminRoute';
+import AdminDashboard from './pages/AdminDashboard';
+import AdminOrders from './pages/AdminOrders';
+import AdminProducts from './pages/AdminProducts';
+import AdminProductEdit from './pages/AdminProductEdit';
+import AdminUsers from './pages/AdminUsers';
+import AdminUserEdit from './pages/AdminUserEdit';
 
 
 
@@ -34,10 +43,36 @@ function App() {
           <Route path='/cart' element={<CartPage/> } />  
           <Route path='/login' element={<SignInPage/> } />  
           <Route path='/register' element={<Register/> } />  
-          <Route path='/profile' element={<UserProfilePage/> } />  
+            <Route path='/profile' element={<ProtectedRoutes>
+              <UserProfilePage />
+            </ProtectedRoutes>} /> 
+            <Route path='/admin/dashboard' element={<AdminRoute>
+              <AdminDashboard />
+            </AdminRoute>} /> 
+            <Route path='/admin/orders' element={<AdminRoute>
+              <AdminOrders />
+            </AdminRoute>} /> 
+            <Route path='/admin/products' element={<AdminRoute>
+              <AdminProducts />
+            </AdminRoute>} /> 
+            <Route path='/admin/product/:id' element={<AdminRoute>
+              <AdminProductEdit />
+            </AdminRoute>} /> 
+            <Route path='/admin/users' element={<AdminRoute>
+              <AdminUsers />
+            </AdminRoute>} /> 
+            <Route path='/admin/user/:id' element={<AdminRoute>
+              <AdminUserEdit />
+            </AdminRoute>} /> 
+    
+        
+            
+
+            
           <Route path='/shipping' element={<ShippingPage/> } />  
           <Route path='/payment' element={<PaymentPage/> } />  
           <Route path='/placeorder' element={<PlaceOrder/> } />  
+          <Route path='/fav' element={<FavList/> } />  
         </Routes>
       </main>
       </div>

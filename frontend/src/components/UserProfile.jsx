@@ -5,7 +5,7 @@ import axios from 'axios';
 import { reducer } from '../store/reducers';
 
 
-// const reducer = (state, action) => {
+// const reducer1 = (state, action) => {
 //     switch (action.type) {
 //         case 'USER_UPDATE_REQUEST':
 //             return { ...state, loadingUpdate: true };

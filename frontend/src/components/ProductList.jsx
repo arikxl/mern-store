@@ -12,6 +12,10 @@ const ProductList = () => {
         loading: true, error: '', products: []
     });
 
+    const [productsToShow, setProductsToShow] = useState(products)
+
+    const query = 'pants';
+
     useEffect(() => {
         const fetchProducts = async () => {
             dispatch({ type: 'FETCH_REQUEST' })

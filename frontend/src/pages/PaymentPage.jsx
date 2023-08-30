@@ -20,13 +20,11 @@ const PaymentPage = () => {
   },[shippingAddress, navigate])
 
   const handleSubmit = (e) => {
-    console.log('ASD:', paymentMethod)
     e.preventDefault();
     ctxDispatch({ type: 'SAVE_PAYMENT_METHOD', payload: paymentMethodNAme })
     localStorage.setItem('linoy-paymentMethod', paymentMethodNAme);
     navigate('/placeorder')
   }
-  console.log('paymentMethod:', paymentMethod)
 
   return (
       <div>

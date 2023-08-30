@@ -8,7 +8,7 @@ export const reducer = (state, action) => {
             return { ...state, loading: false, products: action.payload };
         case 'FETCH_FAIL':
             return { ...state, loading: false, error: action.payload };
-                case 'ITEM_FETCH_SUCCESS':
+        case 'ITEM_FETCH_SUCCESS':
             return { ...state, loading: false, product: action.payload };
         case 'CART_ADD_ITEM':
 
@@ -56,6 +56,27 @@ export const reducer = (state, action) => {
         case 'USER_UPDATE_FAIL':
             return { ...state, loadingUpdate: false };
         
+        case 'ADD_FAV_ITEM':
+
+            const newFavItem = action.payload;
+            const existingFavItem = state.favItems.find(
+                (item) => item._id === newFavItem._id
+            );
+            const items = existingFavItem
+                ? state.favItems.map((item) => item._id === existingFavItem._id
+                    ? newFavItem : item)
+                : [...state.favItems, newFavItem];
+            localStorage.setItem('linoy-fav', JSON.stringify(items))
+            return { ...state, favItems: [ ...items ] }
+
+          case 'REMOVE_FAV_ITEM': {
+            const favs = state.favItems.filter(
+                (item) => item._id !== action.payload._id);
+            localStorage.setItem('linoy-fav', JSON.stringify(favs))
+            return { ...state, favItems: [ ...favs ] }
+        }
+
+
         
         default:
             return state
